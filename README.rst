@@ -73,10 +73,6 @@ example, with pytest-hidecaputred installed, the report for the same test is::
     :target: https://travis-ci.org/hamzasheikh/pytest-hidecaptured
     :alt: See Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/hamzasheikh/pytest-hidecaptured?branch=master
-    :target: https://ci.appveyor.com/project/hamzasheikh/pytest-hidecaptured/branch/master
-    :alt: See Build Status on AppVeyor
-
 ----
 
 This `Pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `Cookiecutter-pytest-plugin`_ template.
