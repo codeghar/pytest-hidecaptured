@@ -1,0 +1,5 @@
+*.pyc
+*.log
+.idea/
+dist/
+pytest_hideoutput.egg-info/
