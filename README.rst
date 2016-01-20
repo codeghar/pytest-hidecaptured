@@ -75,15 +75,16 @@ example, with pytest-hidecaputred installed, the report for the same test is::
 
 ----
 
-This `Pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `Cookiecutter-pytest-plugin`_ template.
+This `PyTest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `Cookiecutter-pytest-plugin`_ template.
 
 
 Requirements
 ------------
 
-* Python 3.5+
+* Python 2.7 or 3.3+
 * PyTest 2.8.5+
 
+Note: Older versions of PyTest may be compatible but I have not tested them.
 
 Installation
 ------------
