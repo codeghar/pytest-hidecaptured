@@ -1,5 +1,6 @@
 *.pyc
 *.log
+.cache/
 .idea/
 dist/
 pytest_hidecaptured.egg-info/
