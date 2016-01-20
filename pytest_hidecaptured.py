@@ -1,21 +1,10 @@
 # -*- coding: utf-8 -*-
-
-import pytest
-
-
-def pytest_addoption(parser):
-    group = parser.getgroup('hidecaptured')
-    group.addoption(
-        '--foo',
-        action='store',
-        dest='dest_foo',
-        default=2016,
-        help='Set the value for the fixture "bar".'
-    )
-
-    parser.addini('HELLO', 'Dummy pytest.ini setting')
-
-
-@pytest.fixture
-def bar(request):
-    return request.config.option.dest_foo
+def pytest_runtest_logreport(report):
+    """Overwrite report by removing any captured stderr."""
+    # print("PLUGIN SAYS -> report -> {0}".format(report))
+    # print("PLUGIN SAYS -> report.sections -> {0}".format(report.sections))
+    # print("PLUGIN SAYS -> dir(report) -> {0}".format(dir(report)))
+    # print("PLUGIN SAYS -> type(report) -> {0}".format(type(report)))
+    sections = [item for item in report.sections if item[0] not in ("Captured stderr call")]
+    # print("PLUGIN SAYS -> sections -> {0}".format(sections))
+    report.sections = sections
