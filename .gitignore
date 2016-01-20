@@ -2,4 +2,4 @@
 *.log
 .idea/
 dist/
-pytest_hideoutput.egg-info/
+pytest_hidecaptured.egg-info/
