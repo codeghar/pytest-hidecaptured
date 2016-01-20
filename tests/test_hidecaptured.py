@@ -1,64 +1,115 @@
 # -*- coding: utf-8 -*-
 
 
-def test_bar_fixture(testdir):
-    """Make sure that pytest accepts our fixture."""
+def test_assert_false(testdir):
+    """Test pytest does not display captured stderr on test failure."""
 
     # create a temporary pytest test module
     testdir.makepyfile("""
-        def test_sth(bar):
-            assert bar == "europython2015"
+        import pytest
+        import sys
+        import datetime
+        import logging
+        import logging.handlers
+
+        log_format = '%(asctime)s : %(name)s : %(module)s : %(funcName)s : %(levelname)s : %(message)s'
+        formatter = logging.Formatter(fmt=log_format)
+
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.DEBUG)
+
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG)
+        console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
+
+        strftime_format = '%Y%m%d-%H%M%S'
+        file_name = '{0}-{1}.log'.format(__name__, datetime.datetime.utcnow().strftime(strftime_format))
+        file_handler = logging.handlers.RotatingFileHandler(file_name, maxBytes=1000, backupCount=5)
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+
+        def test_logging():
+            print('PRINT DEBUG!')
+            logger.debug('DEBUG!')
+            logger.info('INFO!')
+            logger.warning('WARNING!')
+            logger.error('ERROR!')
+            logger.critical('CRITICAL!')
+            assert False
     """)
 
-    # run pytest with the following cmd args
-    result = testdir.runpytest(
-        '--foo=europython2015',
-        '-v'
-    )
+    # run pytest with no cmd args
+    result = testdir.runpytest()
 
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*::test_sth PASSED',
-    ])
+    # Assert captured stderr is not displayed
+    for line in result.stdout.lines:
+        assert "Captured stderr call" not in line
+        assert "test_logging : DEBUG : DEBUG!" not in line
+        assert "test_logging : INFO : INFO!" not in line
+        assert "test_logging : WARNING : WARNING!" not in line
+        assert "test_logging : ERROR : ERROR!" not in line
+        assert "test_logging : CRITICAL : CRITICAL!" not in line
+        assert "Captured stdout call" not in line
 
-    # make sure that that we get a '0' exit code for the testsuite
-    assert result.ret == 0
-
-
-def test_help_message(testdir):
-    result = testdir.runpytest(
-        '--help',
-    )
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        'hidecaptured:',
-        '*--foo=DEST_FOO*Set the value for the fixture "bar".',
-    ])
+    # make sure that that we get a '1' exit code for the testsuite
+    assert result.ret == 1
 
 
-def test_hello_ini_setting(testdir):
-    testdir.makeini("""
-        [pytest]
-        HELLO = world
-    """)
+def test_assert_true(testdir):
+    """Test pytest does not display captured stderr on test failure."""
 
+    # create a temporary pytest test module
     testdir.makepyfile("""
         import pytest
+        import sys
+        import datetime
+        import logging
+        import logging.handlers
 
-        @pytest.fixture
-        def hello(request):
-            return request.config.getini('HELLO')
+        log_format = '%(asctime)s : %(name)s : %(module)s : %(funcName)s : %(levelname)s : %(message)s'
+        formatter = logging.Formatter(fmt=log_format)
 
-        def test_hello_world(hello):
-            assert hello == 'world'
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.DEBUG)
+
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG)
+        console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
+
+        strftime_format = '%Y%m%d-%H%M%S'
+        file_name = '{0}-{1}.log'.format(__name__, datetime.datetime.utcnow().strftime(strftime_format))
+        file_handler = logging.handlers.RotatingFileHandler(file_name, maxBytes=1000, backupCount=5)
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+
+        def test_logging():
+            print('PRINT DEBUG!')
+            logger.debug('DEBUG!')
+            logger.info('INFO!')
+            logger.warning('WARNING!')
+            logger.error('ERROR!')
+            logger.critical('CRITICAL!')
+            assert True
     """)
 
-    result = testdir.runpytest('-v')
+    # run pytest with no cmd args
+    result = testdir.runpytest()
 
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*::test_hello_world PASSED',
-    ])
+    # Assert captured stderr and stdout is not displayed
+    for line in result.stdout.lines:
+        assert "Captured stderr call" not in line
+        assert "test_logging : DEBUG : DEBUG!" not in line
+        assert "test_logging : INFO : INFO!" not in line
+        assert "test_logging : WARNING : WARNING!" not in line
+        assert "test_logging : ERROR : ERROR!" not in line
+        assert "test_logging : CRITICAL : CRITICAL!" not in line
+        assert "Captured stdout call" not in line
 
     # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
