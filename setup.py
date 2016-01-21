@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name='pytest-hidecaptured',
-    version='0.1.0',
+    version='0.1.1',
     author='Hamza Sheikh',
     author_email='code@codeghar.com',
     maintainer='Hamza Sheikh',
