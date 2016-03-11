@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import pytest
+
+@pytest.mark.tryfirst
 def pytest_runtest_logreport(report):
     """Overwrite report by removing any captured stderr."""
     # print("PLUGIN SAYS -> report -> {0}".format(report))
