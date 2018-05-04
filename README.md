@@ -122,6 +122,16 @@ The following targets in *Makefile* help do simple things.
 
 Install required packages for development.
 
+## clean
+
+    $ make clean
+
+Removes these directories:
+
+- .tox/
+- build/
+- dist/
+
 ## build
 
     $ make build

@@ -14,3 +14,7 @@ test:
 .PHONY: release
 release:
 	pipenv run twine upload dist/*
+
+.PHONY: clean
+clean:
+	rm -rf .tox/ build/ dist/
