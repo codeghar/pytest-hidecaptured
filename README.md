@@ -14,7 +14,7 @@ When any test fails pytest displays all captured output (stdout, stderr, log)
 as part of its report. For example,
 
     ===== test session starts ======
-    platform darwin -- Python 3.5.1, pytest-2.8.5, py-1.4.31, pluggy-0.3.1
+    platform darwin -- Python 3.6.5, pytest-3.5.1, py-1.5.3, pluggy-0.6.0
     rootdir: /home/example/code, inifile:
     collected 1 items
 
@@ -45,9 +45,9 @@ pytest-hidecaptured removes the captured output so it is not displayed. For
 example, with pytest-hidecaputred installed, the report for the same test is,
 
     ===== test session starts ======
-    platform darwin -- Python 3.5.1, pytest-2.8.5, py-1.4.31, pluggy-0.3.1
+    platform darwin -- Python 3.6.5, pytest-3.5.1, py-1.5.3, pluggy-0.6.0
     rootdir: /home/example/code, inifile:
-    plugins: hidecaptured-0.1.0
+    plugins: hidecaptured-0.2.2
     collected 1 items
 
     test_logging.py F
@@ -76,7 +76,11 @@ template.
 
 # Requirements
 
-* Python 2.7 or 3.3+
+* Python
+
+    * 2.7 or 3.6+
+    * pypy2 or pypy3
+
 * pytest 2.8.5+
 
 Note: Older versions of pytest may be compatible but I have not tested them.
@@ -117,6 +121,16 @@ The following targets in *Makefile* help do simple things.
     $ make init
 
 Install required packages for development.
+
+## clean
+
+    $ make clean
+
+Removes these directories:
+
+- .tox/
+- build/
+- dist/
 
 ## build
 
