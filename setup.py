@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name="pytest-hidecaptured",
-    version="0.2.1",
+    version="0.2.2",
     author="Hamza Sheikh",
     author_email="code@codeghar.com",
     maintainer="Hamza Sheikh",
@@ -33,9 +33,6 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
