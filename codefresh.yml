@@ -1,0 +1,32 @@
+version: '1.0'
+steps:
+  testpy27:
+    title: Test with Python 2.7
+    image: python:2.7-stretch
+    commands:
+      - python2.7 -m pip install tox
+      - tox -e py27
+  testpy36:
+    title: Test with Python 3.6
+    image: python:3.6-stretch
+    commands:
+      - python3.6 -m pip install tox
+      - tox -e py36
+  testpypy:
+    title: Test with pypy
+    image: pypy:2
+    commands:
+      - pip install tox
+      - tox -e pypy
+  testpypy3:
+    title: Test with pypy3
+    image: pypy:3
+    commands:
+      - pip install tox
+      - tox -e pypy3
+  build:
+    title: Build with Python 3.6
+    image: python:3.6-stretch
+    commands:
+      - python3.6 -m pip install pipenv
+      - make init build
