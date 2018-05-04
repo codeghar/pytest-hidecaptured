@@ -20,7 +20,7 @@ steps:
     title: Test with pypy
     image: pypy:2
     commands:
-      - python -m pip install tox
+      - pip install tox
     #   - python -m pip install pipenv
     #   - pipenv install
       - tox -e pypy
@@ -28,7 +28,7 @@ steps:
     title: Test with pypy3
     image: pypy:3
     commands:
-      - python -m pip install tox
+      - pip install tox
     #   - python -m pip install pipenv
     #   - pipenv install
       - tox -e pypy3
