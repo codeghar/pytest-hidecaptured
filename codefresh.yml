@@ -4,27 +4,31 @@ steps:
     title: Test with Python 2.7
     image: python:2.7-stretch
     commands:
-      - python2.7 -m pip install pipenv
-      - pipenv install
+      - python2.7 -m pip install tox
+    #   - python2.7 -m pip install pipenv
+    #   - pipenv install
       - tox -e py27
   testpy36:
     title: Test with Python 3.6
     image: python:3.6-stretch
     commands:
-      - python3.6 -m pip install pipenv
-      - pipenv install
+      - python3.6 -m pip install tox
+    #   - python3.6 -m pip install pipenv
+    #   - pipenv install
       - tox -e py36
   testpypy:
     title: Test with pypy
     image: pypy:2
     commands:
-      - python -m pip install pipenv
-      - pipenv install
+      - python -m pip install tox
+    #   - python -m pip install pipenv
+    #   - pipenv install
       - tox -e pypy
   testpypy3:
     title: Test with pypy3
     image: pypy:3
     commands:
-      - python -m pip install pipenv
-      - pipenv install
+      - python -m pip install tox
+    #   - python -m pip install pipenv
+    #   - pipenv install
       - tox -e pypy3
