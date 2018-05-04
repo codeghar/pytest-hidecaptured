@@ -1,0 +1,8 @@
+version: '1.0'
+steps:
+  build:
+    image: python
+    commands:
+      - python -m pip install pipenv
+      - pipenv install
+      - make test build
