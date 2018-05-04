@@ -13,17 +13,18 @@ def read(fname):
 
 setup(
     name="pytest-hidecaptured",
-    version="0.2.0",
+    version="0.2.1",
     author="Hamza Sheikh",
     author_email="code@codeghar.com",
     maintainer="Hamza Sheikh",
     maintainer_email="code@codeghar.com",
     license="MIT",
-    url="https://github.com/hamzasheikh/pytest-hidecaptured",
+    url="https://github.com/codeghar/pytest-hidecaptured",
     description="Hide captured output",
-    long_description=read("README.rst"),
+    long_description=read("README.md"),
     py_modules=["pytest_hidecaptured"],
     install_requires=["pytest>=2.8.5"],
+    # https://pypi.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

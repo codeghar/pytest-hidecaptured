@@ -2,5 +2,9 @@
 *.log
 .cache/
 .idea/
+.pytest_cache/
+.tox/
+.vscode/
+build/
 dist/
 pytest_hidecaptured.egg-info/
