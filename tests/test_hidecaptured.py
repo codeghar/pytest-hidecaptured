@@ -5,7 +5,8 @@ def test_assert_false(testdir):
     """Test pytest does not display captured stderr on test failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -39,7 +40,8 @@ def test_assert_false(testdir):
             logger.error('ERROR!')
             logger.critical('CRITICAL!')
             assert False
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -62,7 +64,8 @@ def test_assert_true(testdir):
     """Test pytest does not display captured stderr on test failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -96,7 +99,8 @@ def test_assert_true(testdir):
             logger.error('ERROR!')
             logger.critical('CRITICAL!')
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -119,7 +123,8 @@ def test_setup_assert_false(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -157,7 +162,8 @@ def test_setup_assert_false(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -180,7 +186,8 @@ def test_setup_assert_true(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -218,7 +225,8 @@ def test_setup_assert_true(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -241,7 +249,8 @@ def test_setup_function_assert_false(testdir):
     """Test pytest does not display captured stderr on test setup function failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -279,7 +288,8 @@ def test_setup_function_assert_false(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -302,7 +312,8 @@ def test_setup_function_assert_true(testdir):
     """Test pytest does not display captured stderr on test setup function failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -340,7 +351,8 @@ def test_setup_function_assert_true(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -364,7 +376,8 @@ def test_teardown_assert_false(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -402,7 +415,8 @@ def test_teardown_assert_false(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -425,7 +439,8 @@ def test_teardown_assert_true(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -463,7 +478,8 @@ def test_teardown_assert_true(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -486,7 +502,8 @@ def test_teardown_function_assert_false(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -524,7 +541,8 @@ def test_teardown_function_assert_false(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -547,7 +565,8 @@ def test_teardown_function_assert_true(testdir):
     """Test pytest does not display captured stderr on test setup failure."""
 
     # create a temporary pytest test module
-    testdir.makepyfile("""
+    testdir.makepyfile(
+        """
         import pytest
         import sys
         import datetime
@@ -585,7 +604,8 @@ def test_teardown_function_assert_true(testdir):
 
         def test_logging():
             assert True
-    """)
+    """
+    )
 
     # run pytest with no cmd args
     result = testdir.runpytest()
@@ -602,3 +622,54 @@ def test_teardown_function_assert_true(testdir):
 
     # make sure that that we get a '1' exit code for the testsuite
     assert result.ret == 0
+
+
+def test_hide_capture_log_call(testdir):
+    """Test pytest does not display captured log call on test failure."""
+
+    # create a temporary pytest test module
+    testdir.makepyfile(
+        """
+        import pytest
+        import daiquiri
+        import sys
+        import datetime
+        import logging
+
+        strftime_format = '%Y%m%d-%H%M%S'
+        file_name = '{0}-{1}.log'.format(__name__, datetime.datetime.utcnow().strftime(strftime_format))
+
+        daiquiri.setup(
+            level=logging.INFO,
+            outputs=(daiquiri.output.File(file_name),),
+        )
+        logger = daiquiri.getLogger(__name__)
+
+
+        def test_logging():
+            print('PRINT DEBUG!')
+            logger.debug('DEBUG!')
+            logger.info('INFO!')
+            logger.warning('WARNING!')
+            logger.error('ERROR!')
+            logger.critical('CRITICAL!')
+            assert False
+    """
+    )
+
+    # run pytest with no cmd args
+    result = testdir.runpytest()
+
+    # Assert captured log call is not displayed
+    for line in result.stdout.lines:
+        assert "Captured log call" not in line
+        assert "test_logging : DEBUG : DEBUG!" not in line
+        assert "test_logging : INFO : INFO!" not in line
+        assert "test_logging : WARNING : WARNING!" not in line
+        assert "test_logging : ERROR : ERROR!" not in line
+        assert "test_logging : CRITICAL : CRITICAL!" not in line
+        assert "Captured stdout call" not in line
+        assert "Captured stderr call" not in line
+
+    # make sure that that we get a '1' exit code for the testsuite
+    assert result.ret == 1
